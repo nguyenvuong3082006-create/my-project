@@ -1,0 +1,39 @@
+local player = game.Players.LocalPlayer
+
+if player.UserId ~= allowedUserId then return end
+
+local Rep = game:GetService("ReplicatedStorage")
+
+local gui = Instance.new("ScreenGui", player.PlayerGui)
+gui.Name = "AIHoiHub"
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,400,0,300)
+frame.Position = UDim2.new(0.5,-200,0.5,-150)
+frame.BackgroundColor3 = Color3.fromRGB(15,15,15)
+
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1,0,0,40)
+title.Text = "AI HỎI HUB - NO KEY"
+title.TextColor3 = Color3.new(1,1,1)
+title.BackgroundTransparency = 1
+
+local function createButton(text, y, action)
+	local btn = Instance.new("TextButton", frame)
+	btn.Size = UDim2.new(0,300,0,40)
+	btn.Position = UDim2.new(0.5,-150,0,y)
+	btn.Text = text
+	btn.MouseButton1Click:Connect(action)
+end
+
+createButton("Auto Attack",60,function()
+	Rep.DevEvent:FireServer("Attack")
+end)
+
+createButton("Teleport Spawn",110,function()
+	Rep.DevEvent:FireServer("Teleport")
+end)
+
+createButton("Explosion Skill",160,function()
+	Rep.DevEvent:FireServer("Explosion")
+end)
